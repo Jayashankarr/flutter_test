@@ -86,25 +86,11 @@ class RecipePageState extends State<RecipePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text('15 Ingrediants',
-                        textAlign: TextAlign.start,
-                        style: Theme.of(context).textTheme.subhead),
-                  ),
-                  Expanded(
-                    child: Text('15 minutes',
-                        textAlign: TextAlign.end,
-                        style: Theme.of(context).textTheme.subhead),
-                  ),
-                ],
-              ),
               SizedBox(height: 10),
               Container(
                   alignment: Alignment.centerLeft,
-                  child: Text("Lijith",
-                      style: Theme.of(context).textTheme.subtitle)),
+                  child:
+                      Text("Lijith", style: Theme.of(context).textTheme.title)),
               SizedBox(height: 10),
               Container(
                   child: Row(
@@ -169,28 +155,69 @@ class RecipePageState extends State<RecipePage> {
                     ),
                   ])),
               SizedBox(height: 15),
-              Row(
-                children: <Widget>[
-                  Text('Total Time:'),
-                  Text('1 Hr 15 min'),
-                ],
+              new RichText(
+                text: new TextSpan(
+                  // Note: Styles for TextSpans must be explicitly defined.
+                  // Child text spans will inherit styles from parent
+
+                  children: <TextSpan>[
+                    new TextSpan(
+                        text: 'Total Time:',
+                        style: Theme.of(context)
+                            .textTheme
+                            .subhead
+                            .merge(TextStyle(color: Colors.black))),
+                    new TextSpan(
+                        text: ' 1 Hr 15 Min',
+                        style: Theme.of(context).textTheme.subhead.merge(
+                            TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black))),
+                  ],
+                ),
               ),
               SizedBox(height: 15),
-              Row(
-                children: <Widget>[
-                  Text('Servings:'),
-                  Text('2'),
-                ],
+              new RichText(
+                text: new TextSpan(
+                  // Note: Styles for TextSpans must be explicitly defined.
+                  // Child text spans will inherit styles from parent
+
+                  children: <TextSpan>[
+                    new TextSpan(
+                        text: 'Servings:',
+                        style: Theme.of(context)
+                            .textTheme
+                            .subhead
+                            .merge(TextStyle(color: Colors.black))),
+                    new TextSpan(
+                        text: ' 2',
+                        style: Theme.of(context).textTheme.subhead.merge(
+                            TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black))),
+                  ],
+                ),
               ),
               SizedBox(height: 15),
-              Text('Ingrediants'),
-              ingrediantItem(context, '11111'),
-              ingrediantItem(context, '11111'),
-              ingrediantItem(context, '11111'),
-              ingrediantItem(context, '11111'),
+              Text('Ingrediants',
+                  style: Theme.of(context).textTheme.subhead.merge(TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.black))),
+              SizedBox(height: 10),
+              ingrediantItem(context, 'Chicken mince'),
+              SizedBox(height: 5),
+              ingrediantItem(context, 'split gram pulse 50 gm soaked'),
+              SizedBox(height: 5),
+              ingrediantItem(context, 'whole garam masala 1 tspn'),
+              SizedBox(height: 5),
+              ingrediantItem(context, 'bay leaf 1'),
               SizedBox(height: 15),
-              Text('Directions'),
-              directionItem(context, 'asdadadasda', ''),
+              Text('Directions',
+                  style: Theme.of(context).textTheme.subhead.merge(TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.black))),
+              directionItem(
+                  context,
+                  'in a pressure cooker add mince spices pulse salt ginger garlic and onion',
+                  ''),
               directionItem(
                   context, 'Directions', 'assets/images/main_icon.jpg')
             ],
@@ -245,7 +272,6 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
             snapScreen();
           },
           onVerticalDragUpdate: (event) {
-            print('test' + event.delta.dy.toString());
             scrollTo(event.delta.dy);
           },
           //onVerticalDragStart: (event) {},
@@ -261,10 +287,62 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
         ),
         Positioned(
           left: 16.0,
-          right: 16.0,
-          bottom: 16.0,
-          child: Text('test'),
+          bottom: 45.0,
+          child: Text('Biriyani',
+              textAlign: TextAlign.start,
+              style: Theme.of(context).textTheme.title.merge(
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white))),
         ),
+        Positioned(
+            left: 16.0,
+            bottom: 16.0,
+            child: Row(
+              children: <Widget>[
+                new RichText(
+                  text: new TextSpan(
+                    // Note: Styles for TextSpans must be explicitly defined.
+                    // Child text spans will inherit styles from parent
+
+                    children: <TextSpan>[
+                      new TextSpan(
+                          text: '15',
+                          style: Theme.of(context)
+                              .textTheme
+                              .title
+                              .merge(TextStyle(color: Colors.white))),
+                      new TextSpan(
+                        text: ' Ingrediants',
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            )),
+        Positioned(
+            right: 16.0,
+            bottom: 16.0,
+            child: Row(
+              children: <Widget>[
+                new RichText(
+                  text: new TextSpan(
+                    // Note: Styles for TextSpans must be explicitly defined.
+                    // Child text spans will inherit styles from parent
+
+                    children: <TextSpan>[
+                      new TextSpan(
+                          text: '15',
+                          style: Theme.of(context)
+                              .textTheme
+                              .title
+                              .merge(TextStyle(color: Colors.white))),
+                      new TextSpan(
+                        text: ' Minutes',
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            )),
         Positioned(
           left: 0.0,
           //right: 16.0,
@@ -276,8 +354,6 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
                 size: 30,
               ),
               onPressed: () {
-                print('test');
-                //Navigator.pushNamed(context, '/RecipePage');
                 Navigator.pop(context);
               }),
         )
@@ -292,97 +368,3 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
     return true;
   }
 }
-
-/*class TransitionAppBar extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return new TransitionAppBarState();
-  }
-}
-
-class TransitionAppBarState extends State<TransitionAppBar> {
-  double offset = 0;
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  void callback() {}
-
-  @override
-  Widget build(BuildContext context) {
-    return SliverPersistentHeader(
-      pinned: true,
-      delegate: _TransitionAppBarDelegate(offset: offset),
-    );
-  }
-}
-
-/*class TransitionAppBar extends StatelessWidget {
-  final double offset;
-
-  const TransitionAppBar({this.offset});
-
-  @override
-  Widget build(BuildContext context) {
-    return SliverPersistentHeader(
-      pinned: true,
-      delegate: _TransitionAppBarDelegate(offset: offset),
-    );
-  }
-}*/
-
-class _TransitionAppBarDelegate extends SliverPersistentHeaderDelegate {
-  double offset;
-  double test;
-  _TransitionAppBarDelegate({this.offset}) : assert(offset != null);
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    final progress = shrinkOffset / 200.0;
-    test = shrinkOffset;
-
-    return GestureDetector(
-        onTap: () {
-          offset = 100;
-        },
-        child: Stack(
-          fit: StackFit.expand,
-          children: <Widget>[
-            Image.asset(
-              'assets/images/main_icon.jpg',
-              fit: BoxFit.cover,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      colors: [Colors.transparent, Colors.black54],
-                      stops: [0.5, 1.0],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      tileMode: TileMode.repeated)),
-            ),
-            Positioned(
-              left: 16.0,
-              right: 16.0,
-              bottom: 16.0,
-              child: Text('test'),
-            ),
-          ],
-        ));
-  }
-
-  @override
-  double get maxExtent => 400;
-
-  @override
-  double get minExtent => 100.0;
-
-  @override
-  bool shouldRebuild(_TransitionAppBarDelegate oldDelegate) {
-    //return true;
-    return offset != oldDelegate.offset;
-  }
-}
-*/

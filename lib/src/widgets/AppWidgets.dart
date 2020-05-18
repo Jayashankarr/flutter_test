@@ -85,28 +85,76 @@ Widget subCategoryItem(BuildContext context, int index) {
 }
 
 Widget ingrediantItem(BuildContext context, String title) {
-  return ListTile(
-    leading: Container(
-      height: 20.0,
-      width: 20.0,
-      decoration: new BoxDecoration(
-        color: Colors.black,
-        shape: BoxShape.circle,
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: <Widget>[
+      SizedBox(width: 15),
+      Container(
+        height: 10.0,
+        width: 10.0,
+        decoration: new BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          shape: BoxShape.circle,
+        ),
       ),
-    ),
-    title: Text(title),
-    //subtitle: Text('TWICE'),
+      SizedBox(width: 15),
+      Text(
+        title,
+        style: Theme.of(context)
+            .textTheme
+            .subhead
+            .merge(TextStyle(color: Colors.black)),
+      )
+    ],
   );
 }
 
 Widget directionItem(
     BuildContext context, String description, String imageUrl) {
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      SizedBox(width: 15),
+      Container(
+        height: 10.0,
+        width: 10.0,
+        decoration: new BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          shape: BoxShape.circle,
+        ),
+      ),
+      SizedBox(width: 15),
+      Container(
+          width: MediaQuery.of(context).size.width * 0.8,
+          //height: 200,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              imageUrl == ''
+                  ? Container()
+                  : Image.asset(
+                      imageUrl,
+                      fit: BoxFit.cover,
+                    ),
+              Text(description,
+                  style: Theme.of(context)
+                      .textTheme
+                      .subhead
+                      .merge(TextStyle(color: Colors.black)))
+            ],
+          ))
+    ],
+  );
+}
+
+/*Widget directionItem(
+    BuildContext context, String description, String imageUrl) {
   return ListTile(
     leading: Container(
-      height: 20.0,
-      width: 20.0,
+      height: 10.0,
+      width: 10.0,
       decoration: new BoxDecoration(
-        color: Colors.black,
+        color: Theme.of(context).primaryColor,
         shape: BoxShape.circle,
       ),
     ),
@@ -127,4 +175,4 @@ Widget directionItem(
         )),
     //subtitle: Text('TWICE'),
   );
-}
+}*/
