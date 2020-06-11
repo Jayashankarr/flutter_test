@@ -4,6 +4,65 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'dart:async';
 
+import 'package:provider/provider.dart';
+import 'package:test_project/recipe_repository.dart';
+import 'package:test_project/screens/subcategorypagemodel.dart';
+
+class SubCategoryPage extends StatefulWidget {
+  @override
+  _SubCategoryPageState createState() => _SubCategoryPageState();
+}
+
+class _SubCategoryPageState extends State<SubCategoryPage> {
+  List items = [];
+
+  final digits = [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    items = subCategoryList(context);
+    return ChangeNotifierProvider(
+        create: (BuildContext context) => SubCategoryPageModel(
+            Provider.of<RecipeRepository>(context, listen: false)),
+        child: Consumer<SubCategoryPageModel>(
+          builder: (BuildContext context,
+              SubCategoryPageModel categoryPageModel, Widget child) {
+            return new Scaffold(
+              body: new Center(
+                child: FlipPanel.builder(
+                  itemBuilder: (context, index) => Container(
+                    alignment: Alignment.center,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height / 1.005,
+                    decoration: BoxDecoration(
+                      color: Colors.yellow,
+                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                    ),
+                    child: items[index],
+                  ),
+                  itemsCount: digits.length,
+                  period: Duration(milliseconds: 1000),
+                  loop: -1,
+                ),
+              ),
+            );
+          },
+        ));
+  }
+}
+
+/*
 class MyHomePage extends StatelessWidget {
   List items = [];
 
@@ -71,7 +130,7 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
-
+*/
 /// Signature for a function that creates a widget for a given index, e.g., in a
 /// list.
 typedef Widget IndexedItemBuilder(BuildContext, int);
@@ -506,60 +565,7 @@ List<Widget> subCategoryList(context) {
 
   for (var i = 0; i < 10; i++) {
     retArr.add(subCategoryItem(context, i));
-    /*retArr.add(Column(children: <Widget>[
-      Container(
-        color: colors[i],
-      ),
-      Align(
-          child: Text('Show all recipes containing:' + i.toString()),
-          alignment: Alignment.centerLeft),
-      Text('Description'),
-    ]));*/
-
-    /*retArr.add(Column(children: <Widget>[
-      Flexible(
-        flex: 2,
-        child: Container(
-          color: colors[i],
-        ),
-      ),
-      Align(
-          child: Text('Show all recipes containing:' + i.toString()),
-          alignment: Alignment.centerLeft),
-      Flexible(
-        flex: 2,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            new RichText(
-              textAlign: TextAlign.start,
-              text: new TextSpan(
-                // Note: Styles for TextSpans must be explicitly defined.
-                // Child text spans will inherit styles from parent
-
-                children: <TextSpan>[
-                  new TextSpan(
-                      text: 'Total Time:',
-                      style: Theme.of(context)
-                          .textTheme
-                          .subhead
-                          .merge(TextStyle(color: Colors.black))),
-                  new TextSpan(
-                      text: ' 1 Hr 15 Min',
-                      style: Theme.of(context).textTheme.subhead.merge(
-                          TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black))),
-                ],
-              ),
-            ),
-          ],
-        ),
-      )
-    ]))*/
-
   }
-
   return retArr;
 }
 
