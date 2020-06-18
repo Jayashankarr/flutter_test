@@ -5,6 +5,7 @@ import 'dart:math' as math;
 import 'dart:async';
 
 import 'package:provider/provider.dart';
+import 'package:test_project/recipe.dart';
 import 'package:test_project/recipe_repository.dart';
 import 'package:test_project/screens/subcategorypagemodel.dart';
 
@@ -16,25 +17,21 @@ class SubCategoryPage extends StatefulWidget {
 class _SubCategoryPageState extends State<SubCategoryPage> {
   List items = [];
 
-  final digits = [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-  ];
+  List<Recipe> _recipeList;
+
+  @override
+  void initState() {
+    _recipeList =
+        Provider.of<RecipeRepository>(context, listen: false).getRecipeList();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    items = subCategoryList(context);
+    items = subCategoryList(context, _recipeList);
     return ChangeNotifierProvider(
-        create: (BuildContext context) => SubCategoryPageModel(
-            Provider.of<RecipeRepository>(context, listen: false)),
+        create: (BuildContext context) => SubCategoryPageModel(),
         child: Consumer<SubCategoryPageModel>(
           builder: (BuildContext context,
               SubCategoryPageModel categoryPageModel, Widget child) {
@@ -42,16 +39,15 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
               body: new Center(
                 child: FlipPanel.builder(
                   itemBuilder: (context, index) => Container(
-                    alignment: Alignment.center,
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height / 1.005,
-                    decoration: BoxDecoration(
-                      color: Colors.yellow,
-                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                    ),
-                    child: items[index],
-                  ),
-                  itemsCount: digits.length,
+                      alignment: Alignment.center,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height / 1.005,
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                      ),
+                      child: items[index]),
+                  itemsCount: items.length,
                   period: Duration(milliseconds: 1000),
                   loop: -1,
                 ),
@@ -62,75 +58,6 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
   }
 }
 
-/*
-class MyHomePage extends StatelessWidget {
-  List items = [];
-
-  final digits = [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-  ];
-  final String title;
-
-  MyHomePage({this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    items = subCategoryList(context);
-
-    return new Scaffold(
-      body: new Center(
-        child: FlipPanel.builder(
-          itemBuilder: (context, index) => Container(
-            alignment: Alignment.center,
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 1.005,
-            decoration: BoxDecoration(
-              color: Colors.yellow,
-              borderRadius: BorderRadius.all(Radius.circular(4.0)),
-            ),
-            child: items[index],
-            /*child: Column(
-              children: <Widget>[
-                Flexible(
-                  flex: 3,
-                  child: Container(
-                    color: Colors.cyan,
-                  ),
-                ),
-                Align(
-                    child: Text('Show all recipes containing'),
-                    alignment: Alignment.centerLeft),
-                Flexible(
-                  flex: 2,
-                  child: Text("Description"),
-                )
-              ],
-            ),*/ /*Text(
-              '${digits[index]}',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 80.0,
-                  color: Colors.yellow),
-            ),*/
-          ),
-          itemsCount: digits.length,
-          period: Duration(milliseconds: 1000),
-          loop: -1,
-        ),
-      ),
-    );
-  }
-}
-*/
 /// Signature for a function that creates a widget for a given index, e.g., in a
 /// list.
 typedef Widget IndexedItemBuilder(BuildContext, int);
@@ -547,29 +474,16 @@ class _FlipPanelState<T> extends State<FlipPanel>
   }
 }
 
-List<Widget> subCategoryList(context) {
+List<Widget> subCategoryList(context, List<Recipe> recipeList) {
   List<Widget> retArr = [];
 
-  List colors = [
-    Colors.red,
-    Colors.green,
-    Colors.yellow,
-    Colors.cyan,
-    Colors.white,
-    Colors.black,
-    Colors.deepOrange,
-    Colors.lightBlueAccent,
-    Colors.purple,
-    Colors.orangeAccent
-  ];
-
-  for (var i = 0; i < 10; i++) {
-    retArr.add(subCategoryItem(context, i));
+  for (var i = 0; i < recipeList.length; i++) {
+    retArr.add(subCategoryItem(context, i, recipeList[i]));
   }
   return retArr;
 }
 
-Widget subCategoryItem(BuildContext context, int index) {
+Widget subCategoryItem(BuildContext context, int index, Recipe recipe) {
   List colors = [
     Colors.red,
     Colors.green,
@@ -583,23 +497,104 @@ Widget subCategoryItem(BuildContext context, int index) {
     Colors.orangeAccent
   ];
 
-  return Column(children: <Widget>[
+  /*return Column(
+    children: <Widget>[
+      Container(
+        alignment: Alignment.center,
+        child: Image.asset(
+          'assets/images/biriyani.jpg',
+          height: 250,
+          width: double.infinity,
+          fit: BoxFit.cover,
+        ),
+      )
+    ],
+  );*/
+
+  return Column(crossAxisAlignment: CrossAxisAlignment.start,
+      //s mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        Container(
+            height: MediaQuery.of(context).size.height / 2,
+            color: colors[index],
+            child:
+                Image.asset("assets/images/biriyani.jpg", fit: BoxFit.contain)),
+        Text(recipe.dishName, style: Theme.of(context).textTheme.headline1),
+        new RichText(
+          textAlign: TextAlign.start,
+          text: new TextSpan(
+            // Note: Styles for TextSpans must be explicitly defined.
+            // Child text spans will inherit styles from parent
+
+            children: <TextSpan>[
+              new TextSpan(
+                  text: 'Preparation Time:',
+                  style: Theme.of(context).textTheme.headline1),
+              new TextSpan(
+                  text: recipe.preparationTime.toString(),
+                  style: Theme.of(context).textTheme.headline1),
+            ],
+          ),
+        ),
+        SizedBox(height: 30),
+        Text('Prepared By:', style: Theme.of(context).textTheme.headline1),
+        Stack(
+          children: <Widget>[
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 60,
+            ),
+            Text(recipe.owner, style: Theme.of(context).textTheme.headline1),
+            Positioned(
+              left: MediaQuery.of(context).size.width / 2,
+              // top: 40.0,
+              child:
+                  RaisedButton(child: Text('VIEW PROFILE'), onPressed: (null)),
+            ),
+            Positioned(
+              top: 20.0,
+              child: Text('Sous-Chef',
+                  style: Theme.of(context).textTheme.subtitle1),
+            ),
+            Positioned(
+              top: 40.0,
+              child: Text('890 Brownie Points',
+                  style: Theme.of(context).textTheme.subtitle1),
+            ),
+          ],
+        ),
+        SizedBox(height: 30),
+        RaisedButton(
+            child: Text('VIEW RECIPE'),
+            onPressed: () {
+              Navigator.pushNamed(context, '/SubCatRecipePage');
+            }),
+        RaisedButton(child: Text('ADD TO BOOKMARK'), onPressed: null),
+      ]);
+  /*return Column(children: <Widget>[
     Flexible(
-      flex: 2,
-      child: Container(
+        flex: 2,
+        /*child: Container(
         height: MediaQuery.of(context).size.height / 2,
         color: colors[index],
-        child: Image.asset("assets/images/biriyani.jpg"),
-      ),
-    ),
+        child: Image.asset("assets/images/biriyani.jpg", fit: BoxFit.cover),
+      ),*/
+        child: Container(
+          alignment: Alignment.center,
+          child: Image.asset(
+            'assets/images/biriyani.jpg',
+            height: MediaQuery.of(context).size.height / 2,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
+        )),
     Flexible(
       flex: 2,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          Align(
-              child: Text('Chicken Fried Rice'),
-              alignment: Alignment.centerLeft),
+          Text(recipe.dishName, style: Theme.of(context).textTheme.headline1),
           new RichText(
             textAlign: TextAlign.start,
             text: new TextSpan(
@@ -609,34 +604,24 @@ Widget subCategoryItem(BuildContext context, int index) {
               children: <TextSpan>[
                 new TextSpan(
                     text: 'Preparation Time:',
-                    style: Theme.of(context)
-                        .textTheme
-                        .subhead
-                        .merge(TextStyle(color: Colors.black))),
+                    style: Theme.of(context).textTheme.headline1),
                 new TextSpan(
-                    text: '45',
-                    style: Theme.of(context)
-                        .textTheme
-                        .subhead
-                        .merge(TextStyle(color: Colors.black))),
+                    text: recipe.preparationTime.toString(),
+                    style: Theme.of(context).textTheme.headline1),
               ],
             ),
           ),
-          Align(child: Text('Prepared By:'), alignment: Alignment.centerLeft),
-          Align(child: Text('Donald Trump'), alignment: Alignment.centerLeft),
-          Align(child: Text('Sous-Chef'), alignment: Alignment.centerLeft),
-          Align(
-              child: Text('890 Brownie Points'),
-              alignment: Alignment.centerLeft),
-          Align(
-              child: RaisedButton(child: Text('VIEW RECIPE'), onPressed: null),
-              alignment: Alignment.centerLeft),
-          Align(
-              child:
-                  RaisedButton(child: Text('ADD TO BOOKMARK'), onPressed: null),
-              alignment: Alignment.centerLeft),
+          SizedBox(height: 30),
+          Text('Prepared By:', style: Theme.of(context).textTheme.headline1),
+          Text(recipe.owner, style: Theme.of(context).textTheme.headline1),
+          Text('Sous-Chef', style: Theme.of(context).textTheme.subtitle1),
+          Text('890 Brownie Points',
+              style: Theme.of(context).textTheme.subtitle1),
+          //SizedBox(height: 30),
+          RaisedButton(child: Text('VIEW RECIPE'), onPressed: null),
+          RaisedButton(child: Text('ADD TO BOOKMARK'), onPressed: null),
         ],
       ),
     )
-  ]);
+  ]);*/
 }

@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
+import 'package:test_project/recipe.dart';
 import 'package:test_project/recipe_repository.dart';
 
-class CategoryPageModel with ChangeNotifier {
-  CategoryPageModel(this.recipeRepository);
+class RecipePageModel with ChangeNotifier {
+  RecipePageModel(this.recipeRepository);
 
   final RecipeRepository recipeRepository;
 
@@ -16,7 +17,7 @@ class CategoryPageModel with ChangeNotifier {
     notifyListeners();
   }
 
-  List<String> getRecipePrefs() {
-    return recipeRepository.getRecipePrefs();
+  Recipe getRecipeByIndex(int index) {
+    return recipeRepository.getRecipeByIndex(index);
   }
 }

@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:test_project/category.dart';
 import 'package:test_project/recipe.dart';
+import 'package:test_project/user.dart';
 
 enum ErrorType {
   ERROR_VALIDATION,
@@ -10,6 +13,18 @@ enum ErrorType {
 }
 
 class AuthService with ChangeNotifier {
+  Object userObj = {
+    'userName': 'Lijith',
+    "userId": "user1",
+    "title": "Chef",
+    "followers": 1,
+    "points": 123
+  };
+
+  User get currentUser {
+    return User(userObj);
+  }
+
   String errorString = '';
 
   List<Recipe> items = [];
@@ -18,6 +33,7 @@ class AuthService with ChangeNotifier {
     List<Recipe> retArray = [];
 
     var item = {
+      "categoryId": "category0",
       "category": "Chinese",
       'dishName': 'Chicken Fried Rice',
       "preparationTime": 45,
@@ -31,8 +47,9 @@ class AuthService with ChangeNotifier {
       ]
     };
 
+    //retArray.add(new Recipe(item, 0));
     for (var i = 0; i < 8; i++) {
-      retArray.add(new Recipe(item));
+      retArray.add(new Recipe(item, i));
     }
 
     return retArray;
@@ -43,6 +60,31 @@ class AuthService with ChangeNotifier {
 
     for (var i = 0; i < 8; i++) {
       retArray.add("Prefs" + i.toString());
+    }
+
+    return retArray;
+  }
+
+  // CATEORY -----------
+  var catObj = {
+    "categoryId": "category",
+    "categoryName": "categoryName",
+    "categoryPreferences": [
+      'pref1',
+      'pref2',
+      'pref3',
+      'pref4',
+      'pref5',
+      'pref6',
+      'pref7'
+    ]
+  };
+
+  List<RecipeCategory> get categories {
+    List<RecipeCategory> retArray = [];
+
+    for (var i = 0; i < 10; i++) {
+      retArray.add(new RecipeCategory(catObj, i));
     }
 
     return retArray;

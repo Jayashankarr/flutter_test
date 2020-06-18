@@ -23,14 +23,25 @@ class RecipeRepository with ChangeNotifier {
     notifyListeners();
   }
 
-  List<Recipe> get recipeList => _recipes;
+  //List<Recipe> get recipeList => _recipes;
 
-  List<Recipe> getMainCategoryList() {
+  /*List<Recipe> getRecipeList() {
+    _recipes = authService.recipeList;
+    return authService.recipeList;
+  }*/
+
+  List<Recipe> getRecipeList() {
+    _recipes = authService.recipeList;
     return authService.recipeList;
   }
 
   List<String> getRecipePrefs() {
     return authService.recipePrefs;
+  }
+
+  Recipe getRecipeByIndex(int index) {
+    Recipe recipe = _recipes[index];
+    return recipe;
   }
 
   @override

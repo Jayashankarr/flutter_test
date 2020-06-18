@@ -3,9 +3,9 @@ import 'package:test_project/recipe.dart';
 import 'package:test_project/recipe_repository.dart';
 
 class HomePageModel with ChangeNotifier {
-  HomePageModel(this.recipeRepository);
+  HomePageModel();
 
-  final RecipeRepository recipeRepository;
+  //final RecipeRepository recipeRepository;
 
   /// If true login process is in progress
   bool _isProcessing = false;
@@ -17,7 +17,7 @@ class HomePageModel with ChangeNotifier {
     notifyListeners();
   }
 
-  List<Recipe> getMainCategoryList() {
+  /* List<Recipe> getMainCategoryList() {
     return recipeRepository.getMainCategoryList();
-  }
+  }*/
 }

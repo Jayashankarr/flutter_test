@@ -1,16 +1,16 @@
-import 'dart:ffi';
-
 class Recipe {
+  String categoryId;
   String category;
   String dishName;
-  Float preparationTime;
+  int preparationTime;
   String owner;
-  Float serveCount;
+  int serveCount;
   List<String> ingrediants;
   List<Object> directions;
-  Recipe(object) {
-    this.category = object['category'];
-    this.dishName = object['dishName'];
+  Recipe(object, i) {
+    this.categoryId = object["categoryId"];
+    this.category = object['category'] + i.toString();
+    this.dishName = object['dishName'] + i.toString();
     this.preparationTime = object['preparationTime'];
     this.owner = object["owner"];
     this.serveCount = object["serveCount"];
