@@ -1,6 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:test_project/recipe.dart';
-import 'package:test_project/recipe_repository.dart';
 
 class HomePageModel with ChangeNotifier {
   HomePageModel();

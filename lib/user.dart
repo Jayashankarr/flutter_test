@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class User {
   String userName;
   String userId;

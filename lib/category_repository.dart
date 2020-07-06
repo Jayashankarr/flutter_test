@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:test_project/category.dart';
 import 'package:test_project/services/auth_service.dart';
-import 'package:test_project/recipe.dart';
 
 class CategoryRepository with ChangeNotifier {
   CategoryRepository({this.authService}) {

@@ -60,10 +60,10 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
 
 /// Signature for a function that creates a widget for a given index, e.g., in a
 /// list.
-typedef Widget IndexedItemBuilder(BuildContext, int);
+typedef Widget IndexedItemBuilder(BuildContext temp, int);
 
 /// Signature for a function that creates a widget for a value emitted from a [Stream]
-typedef Widget StreamItemBuilder<T>(BuildContext, T);
+typedef Widget StreamItemBuilder<T>(BuildContext temp, T);
 
 /// A widget for flip panel with built-in animation
 /// Content of the panel is built from [IndexedItemBuilder] or [StreamItemBuilder]
@@ -161,7 +161,7 @@ class _FlipPanelState<T> extends State<FlipPanel>
   final _perspective = 0.001;
   final _zeroAngle =
       0.0001; // There's something wrong in the perspective transform, I use a very small value instead of zero to temporarily get it around.
-  int _loop;
+  //int _loop;
   T _currentValue, _nextValue;
   Timer _timer;
   StreamSubscription<T> _subscription;
@@ -182,7 +182,7 @@ class _FlipPanelState<T> extends State<FlipPanel>
     _isStreamMode = widget.itemStream != null;
     _isReversePhase = false;
     _running = false;
-    _loop = 0;
+    //_loop = 0;
     _direction = widget.direction;
 
     _controller =
@@ -269,8 +269,8 @@ class _FlipPanelState<T> extends State<FlipPanel>
           onVerticalDragUpdate: (dragDetails) {
             if (updateVerticalDragDetails == null) {
               updateVerticalDragDetails = dragDetails;
-              double dx = updateVerticalDragDetails.globalPosition.dx -
-                  startVerticalDragDetails.globalPosition.dx;
+              /*double dx = updateVerticalDragDetails.globalPosition.dx -
+                  startVerticalDragDetails.globalPosition.dx;*/
               double dy = updateVerticalDragDetails.globalPosition.dy -
                   startVerticalDragDetails.globalPosition.dy;
               //double velocity = endDetails.primaryVelocity;
@@ -567,7 +567,7 @@ Widget subCategoryItem(BuildContext context, int index, Recipe recipe) {
         RaisedButton(
             child: Text('VIEW RECIPE'),
             onPressed: () {
-              Navigator.pushNamed(context, '/SubCatRecipePage');
+              Navigator.pushNamed(context, '/RecipePage');
             }),
         RaisedButton(child: Text('ADD TO BOOKMARK'), onPressed: null),
       ]);
