@@ -40,41 +40,50 @@ class _HomePageState extends State<HomePage> {
             (BuildContext context, HomePageModel homePageModel, Widget child) {
           return Scaffold(
               appBar: PreferredSize(
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: <Widget>[
-                      Container(
-                        color: Colors.red,
-                      ),
-                      Positioned(
-                        top: 40,
-                        left: 120,
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(user.userName,
-                                  style: Theme.of(context).textTheme.headline1),
-                              Text(user.title,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle1
-                                      .merge(TextStyle(
-                                          fontStyle: FontStyle.italic))),
-                              Text(user.followers.toString() + " Followers",
-                                  style: Theme.of(context).textTheme.subtitle1),
-                              Text(user.points.toString() + " Brownie Points",
-                                  style: Theme.of(context).textTheme.subtitle1)
-                            ]),
-                      ),
-                      Positioned(
+                  child: GestureDetector(
+                    onTap: () {
+                      print('test');
+                      Navigator.pushNamed(context, '/MenuPage');
+                    },
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: <Widget>[
+                        Container(
+                          color: Colors.red,
+                        ),
+                        Positioned(
                           top: 40,
-                          left: 20,
-                          child: Icon(
-                            Icons.account_circle,
-                            size: 70,
-                          ))
-                    ],
+                          left: 120,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(user.userName,
+                                    style:
+                                        Theme.of(context).textTheme.headline1),
+                                Text(user.title,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle1
+                                        .merge(TextStyle(
+                                            fontStyle: FontStyle.italic))),
+                                Text(user.followers.toString() + " Followers",
+                                    style:
+                                        Theme.of(context).textTheme.subtitle1),
+                                Text(user.points.toString() + " Brownie Points",
+                                    style:
+                                        Theme.of(context).textTheme.subtitle1)
+                              ]),
+                        ),
+                        Positioned(
+                            top: 40,
+                            left: 20,
+                            child: Icon(
+                              Icons.account_circle,
+                              size: 70,
+                            ))
+                      ],
+                    ),
                   ),
                   preferredSize: Size.fromHeight(100)),
               body: GridView.builder(
