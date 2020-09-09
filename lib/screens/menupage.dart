@@ -6,9 +6,7 @@ import 'package:test_project/user.dart';
 import 'package:test_project/user_repository.dart';
 
 class MenuPage extends StatefulWidget {
-  MenuPage({Key key, this.title}) : super(key: key);
-
-  final String title;
+  MenuPage({Key key}) : super(key: key);
 
   @override
   _MenuPageState createState() => _MenuPageState();

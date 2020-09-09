@@ -30,6 +30,11 @@ class RecipeRepository with ChangeNotifier {
     return authService.recipeList;
   }*/
 
+  List<Recipe> getRecipeListByUserId(String userId) {
+    return authService.getRecipeListByUserId(userId);
+  }
+
+
   List<Recipe> getRecipeList() {
     _recipes = authService.recipeList;
     return authService.recipeList;

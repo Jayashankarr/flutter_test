@@ -21,6 +21,18 @@ class AuthService with ChangeNotifier {
     "points": 123
   };
 
+  Object friendObj = {
+    'userName': 'Randeep',
+    "userId": "user2",
+    "title": "Master",
+    "followers": 2,
+    "points": 1234
+  };
+
+  User getUserDetailsById(String userId) {
+    return User(friendObj);
+  }
+
   User get currentUser {
     return User(userObj);
   }
@@ -28,6 +40,32 @@ class AuthService with ChangeNotifier {
   String errorString = '';
 
   List<Recipe> items = [];
+
+  List<Recipe> getRecipeListByUserId(String userId) {
+    List<Recipe> retArray = [];
+
+    var item = {
+      "categoryId": "category0",
+      "category": "Chinese",
+      'dishName': 'Chicken Fried Rice',
+      "preparationTime": 45,
+      "owner": "Randeep",
+      "serveCount": 3,
+      "ingrediants": ["ingrediant1", "ingrediant2"],
+      "directions": [
+        {"direction": "direction1"},
+        {"direction": "direction2"},
+        {"direction": "direction3"},
+      ]
+    };
+
+    //retArray.add(new Recipe(item, 0));
+    for (var i = 0; i < 8; i++) {
+      retArray.add(new Recipe(item, i));
+    }
+
+    return retArray;
+  }
 
   List<Recipe> get recipeList {
     List<Recipe> retArray = [];

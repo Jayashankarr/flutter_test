@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_project/category.dart';
 import 'package:test_project/category_repository.dart';
+import 'package:test_project/screens/friendprofilepage.dart';
 import 'package:test_project/screens/homepagemodel.dart';
 import 'package:test_project/user.dart';
 import 'package:test_project/user_repository.dart';
@@ -43,7 +44,12 @@ class _HomePageState extends State<HomePage> {
                   child: GestureDetector(
                     onTap: () {
                       print('test');
-                      Navigator.pushNamed(context, '/MenuPage');
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => FriendProfilePage(
+                                friendId: "1234",
+                              )));
+                      //Navigator.pushNamed(context, '/FriendProfilePage',
+                      //  arguments: {'friendId': "1234"});
                     },
                     child: Stack(
                       fit: StackFit.expand,

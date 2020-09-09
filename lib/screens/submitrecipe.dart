@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:test_project/popup/bluralertpopup.dart';
 import 'package:test_project/recipe_repository.dart';
@@ -166,7 +167,6 @@ class _SubmitRecipePageState extends State<SubmitRecipePage> {
                         ])),
                     txtPanel(MediaQuery.of(context).size.width * 0.9, 50, 1, "",
                         true),
-                    IconButton(icon: Icon(Icons.camera), onPressed: null),
                     SizedBox(height: 20),
                     Text('PREPARATION TIME',
                         style: Theme.of(context).textTheme.headline1),
@@ -272,17 +272,16 @@ class _SubmitRecipePageState extends State<SubmitRecipePage> {
                             addIngrediant,
                             updateIngrediantText)),
                     SizedBox(height: 20),
-                    Container(
-                      decoration: _image == null
-                          ? null
-                          : BoxDecoration(
-                              image: DecorationImage(image: FileImage(_image))),
-                    ),
+                    // Center(
+                    //   child: _image == null
+                    //       ? Text('No image selected.')
+                    //       : Image.file(_image),
+                    // ),
                     Center(
                       child: RaisedButton(
                           color: Colors.grey,
                           onPressed: () {
-                            //_showDialog(context);
+                            _showDialog(context);
                             // _showSelectionDialog(context, _updateImages);
                           },
                           child: Text('SUBMIT RECIPE',
@@ -467,7 +466,7 @@ Widget txtPanelModified(
   );
 }
 
-/*Future getImage(callback) async {
+Future getImage(callback) async {
   File _image;
   final picker = ImagePicker();
 
@@ -493,4 +492,4 @@ Future<void> _showSelectionDialog(BuildContext context, callback) {
           ],
         );
       });
-}*/
+}

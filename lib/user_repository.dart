@@ -25,6 +25,10 @@ class UserRepository with ChangeNotifier {
     return _user;
   }
 
+  User getUserById(String id) {
+    return authService.getUserDetailsById(id);
+  }
+
   set(value) {
     _user = value;
     notifyListeners();

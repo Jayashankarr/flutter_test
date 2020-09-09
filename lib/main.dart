@@ -3,12 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:test_project/category_repository.dart';
 import 'package:test_project/screens/categorypage.dart';
+import 'package:test_project/screens/friendprofilepage.dart';
 import 'package:test_project/screens/homepage.dart';
 import 'package:test_project/screens/menupage.dart';
 import 'package:test_project/screens/recipepage.dart';
 import 'package:test_project/screens/subcategory.dart';
 import 'package:test_project/screens/submitrecipe.dart';
-import 'package:test_project/screens/submitrecipemodel.dart';
 import 'package:test_project/services/auth_service.dart';
 import 'package:test_project/recipe_repository.dart';
 import 'package:test_project/theme.dart';
@@ -49,7 +49,9 @@ class MyApp extends StatelessWidget {
               '/SubCategory': (BuildContext context) => SubCategoryPage(),
               '/RecipePage': (BuildContext context) => RecipePage(),
               '/MenuPage': (BuildContext context) => MenuPage(),
-              '/SubmitRecipe': (BuildContext context) => SubmitRecipePage()
+              '/SubmitRecipe': (BuildContext context) => SubmitRecipePage(),
+              '/FriendProfilePage': (BuildContext context) =>
+                  FriendProfilePage(),
             }
             //home: RecipePage(),
             ),
